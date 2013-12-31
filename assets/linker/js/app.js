@@ -75,10 +75,27 @@ var heat;
 $(document).ready(function(){
   var options = {
     zoom: 4,
-    center: new google.maps.LatLng(51.0834651334079, 258.7934140625)
+    center: new google.maps.LatLng(51.0834651334079, 258.7934140625),
+    mapTypeControlOptions: {
+         mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'greyscale']
+    }
   }
 
+  var style = [
+    {
+      featureType: "all",
+      elementType: "all",
+      stylers: [
+        { saturation: -100 }
+      ]
+    }
+];
+
   map = new google.maps.Map($("#map-canvas")[0], options);
+
+  var mapType = new google.maps.StyledMapType(style, { name:"Grayscale" });    
+  map.mapTypes.set('greyscale', mapType);
+  map.setMapTypeId('greyscale');
 
   heat = new google.maps.visualization.HeatmapLayer({
     map: map,

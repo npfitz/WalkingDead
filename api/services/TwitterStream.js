@@ -11,7 +11,7 @@ exports.start = function(){
 
 
 	var options = {
-		'track':'walking dead'
+		'track':'walking dead,talking dead,zombies'
 	}
 
 
