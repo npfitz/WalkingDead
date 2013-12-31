@@ -7,6 +7,9 @@
  * Feel free to change none, some, or ALL of this file to fit your needs!
  */
 
+var map;
+var heat;
+var data = [];
 
 (function (io) {
 
@@ -18,8 +21,22 @@
 
   socket.on('connect', function socketConnected() {
 
+    socket.get('/Tweet/subscribe', function gotResponse (message) {
+      console.log(message);
+    });
+
     // Listen for Comet messages from Sails
     socket.on('message', function messageReceived(message) {
+
+      if (message.model == "tweet"){
+        log("New Tweet: " + message.data.text);
+
+        var marker = {
+          location: new google.maps.LatLng(message.data.lat, message.data.lng)
+        }
+        data.push(marker);
+        heat.setData(data);
+      }
 
       ///////////////////////////////////////////////////////////
       // Replace the following with your own custom logic
@@ -30,6 +47,10 @@
       //////////////////////////////////////////////////////
 
     });
+
+    socket.on('newTweet', function(tweet){
+      
+    })
 
 
     ///////////////////////////////////////////////////////////
@@ -70,8 +91,7 @@
 
 );
 
-var map;
-var heat;
+
 $(document).ready(function(){
   var options = {
     zoom: 4,
@@ -102,8 +122,6 @@ $(document).ready(function(){
   });
 
   $.get("/Tweet/getTweets", function(response){
-
-    var data = [];
 
     response.forEach(function(tweet){
       var marker = {

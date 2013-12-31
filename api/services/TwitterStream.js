@@ -6,7 +6,6 @@ var twit = new twitter({
   access_token_secret: 'iewtyGsAB1UHZkubGWLX6YvJMaBnikUqI1jm3INATUk3a'
 })
 
-
 exports.start = function(){
 
 
@@ -19,19 +18,22 @@ exports.start = function(){
 		stream.on("data", function(data){
 			
 			if(data.geo != null){
-				console.log(data);
+				//console.log(data);
 
 				var params = {
 					text: data.text,
 					lat: data.geo.coordinates[0],
 					lng: data.geo.coordinates[1],
 					twitter_id: data.id,
-					twitter_createdAt: data.created_at
+					twitter_createdAt: data.created_at,
+					id: data.id
 				}
 
-				Tweet.create(params, function(tweet){
-
+				Tweet.publishCreate(params, function(tweet){
 				});
+
+
+
 			}
 		})
 	})

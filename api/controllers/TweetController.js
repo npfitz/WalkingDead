@@ -28,6 +28,12 @@ module.exports = {
 
 	},
 
+	'subscribe': function(req, res){
+		console.log('User Subscribed');
+		Tweet.subscribe(req);
+		res.send({message:"subscribed"});
+	},
+
   /**
    * Overrides for the settings in `config/controllers.js`
    * (specific to TweetController)
