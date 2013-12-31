@@ -69,3 +69,60 @@
   window.io
 
 );
+
+var map;
+var heat;
+$(document).ready(function(){
+  var options = {
+    zoom: 4,
+    center: new google.maps.LatLng(51.0834651334079, 258.7934140625)
+  }
+
+  map = new google.maps.Map($("#map-canvas")[0], options);
+
+  heat = new google.maps.visualization.HeatmapLayer({
+    map: map,
+  });
+
+  $.get("/Tweet/getTweets", function(response){
+
+    var data = [];
+
+    response.forEach(function(tweet){
+      var marker = {
+        location: new google.maps.LatLng(tweet.lat, tweet.lng)
+      }
+      data.push(marker);
+    });
+
+    heat.setData(data);
+
+  })
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

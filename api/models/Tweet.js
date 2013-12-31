@@ -16,7 +16,7 @@ module.exports = {
   	lat: "float",
   	lng: "float",
   	twitter_id: "string",
-  	twitter_createdAt: "string"
+  	twitter_createdAt: "date"
     
   }
 
