@@ -18,7 +18,7 @@ exports.start = function(){
 		stream.on("data", function(data){
 			
 			if(data.geo != null){
-				//console.log(data);
+				
 
 				var params = {
 					text: data.text,
@@ -26,14 +26,17 @@ exports.start = function(){
 					lng: data.geo.coordinates[1],
 					twitter_id: data.id,
 					twitter_createdAt: data.created_at,
-					id: data.id
+					
 				}
+
+				Tweet.create(params, function(tweet){
+
+				});
+
+				params.id = params.twitter_id;
 
 				Tweet.publishCreate(params, function(tweet){
 				});
-
-
-
 			}
 		})
 	})

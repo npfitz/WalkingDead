@@ -10,6 +10,7 @@
 var map;
 var heat;
 var data = [];
+var marquee;
 
 (function (io) {
 
@@ -36,6 +37,9 @@ var data = [];
         }
         data.push(marker);
         heat.setData(data);
+
+        $("#ticker_orig").append("<p>" + message.data.text + "</p>");
+        $("#ticker_copy1").append("<p>" + message.data.text + "</p>");
       }
 
       ///////////////////////////////////////////////////////////
@@ -129,6 +133,12 @@ $(document).ready(function(){
       }
       data.push(marker);
     });
+
+    for(var i = response.length - 1; i > response.length - 6; i--){
+      $("#ticker").append("<p>" + response[i].text + "</p>");
+    }
+
+    marquee = new Marquee({id:"ticker"}).init();
 
     heat.setData(data);
 
